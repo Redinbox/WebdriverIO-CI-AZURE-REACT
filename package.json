@@ -1,0 +1,84 @@
+{
+  "name": "automation-test",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.3",
+    "@testing-library/react": "^12.1.4",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.4.1",
+    "@types/mocha": "^9.1.0",
+    "@types/node": "^17.0.21",
+    "@types/react": "^17.0.43",
+    "@types/react-dom": "^17.0.14",
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "@typescript-eslint/parser": "^5.13.0",
+    "@wdio/allure-reporter": "^7.16.13",
+    "@wdio/cli": "^7.16.13",
+    "@wdio/reporter": "^7.16.13",
+    "@wdio/types": "^7.16.14",
+    "allure-commandline": "^2.13.8",
+    "allure-js-commons": "^1.3.2",
+    "chai": "^4.3.6",
+    "concurrently": "^7.0.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.10.0",
+    "expect": "^27.5.1",
+    "mkdirp": "^1.0.4",
+    "prettier": "^2.4.1",
+    "process": "^0.11.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "5.0.0",
+    "rimraf": "^3.0.2",
+    "tsconfig-paths": "^3.12.0",
+    "wait-on": "^6.0.1",
+    "wdio-reportportal-reporter": "^7.4.1",
+    "wdio-safaridriver-service": "^0.0.1",
+    "web-vitals": "^2.1.4",
+    "webdriverio": "^7.16.12"
+  },
+  "devDependencies": {
+    "@wdio/appium-service": "^7.16.13",
+    "@wdio/local-runner": "^7.16.13",
+    "@wdio/mocha-framework": "^7.16.13",
+    "@wdio/selenium-standalone-service": "^7.16.16",
+    "@wdio/spec-reporter": "^7.16.13",
+    "chromedriver": "^93.0.1",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3",
+    "wdio-chromedriver-service": "^7.2.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "test:wdio": "wdio ./src/config/wdio.config.js",
+    "e2e:ci": "concurrently -k -s first \"npm:e2e:ci:*\"",
+    "e2e:ci:server": "cross-env SERVER_PORT=40001 ./launchServer.sh",
+    "pree2e:ci:app": "wait-on -t30000 http-get://localhost:40001/state",
+    "e2e:ci:app": "cross-env BROWSER=none PORT=40002 npm start",
+    "pree2e:ci:run": "wait-on -t 30000 http-get://localhost:40002",
+    "e2e:ci:run": "npx wdio run ./src/config/wdio.config.js --baseUrl http://localhost:40002",
+    "allure:open": "allure generate ./report/allure-results/  -o ./report/allure-report/ --clean && allure open ./report/allure-report"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

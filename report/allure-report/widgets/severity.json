@@ -1,0 +1,21 @@
+[ {
+  "uid" : "c60ba06431d901dd",
+  "name" : "Should have same number count",
+  "time" : {
+    "start" : 1648300890457,
+    "stop" : 1648300898037,
+    "duration" : 7580
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "54ec136c6a130bb0",
+  "name" : "should not have same number count",
+  "time" : {
+    "start" : 1648300898038,
+    "stop" : 1648300906109,
+    "duration" : 8071
+  },
+  "status" : "failed",
+  "severity" : "normal"
+} ]

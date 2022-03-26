@@ -1,0 +1,116 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1648300890456' stop='1648300906110'>
+    <name>webdriver.io page</name>
+    <title>webdriver.io page</title>
+    <test-cases>
+        <test-case start='1648300890457' status='passed' stop='1648300898037'>
+            <name>Should have same number count</name>
+            <title>Should have same number count</title>
+            <labels>
+                <label name='language' value='javascript'/>
+                <label name='framework' value='wdio'/>
+                <label name='thread' value='0-0'/>
+                <label name='testId' value='TC-001Should have same number count'/>
+            </labels>
+            <parameters>
+                <parameter kind='argument' name='browser' value='chrome-99.0.4844.83'/>
+                <parameter kind='environment-variable' name='BROWSER' value='chrome'/>
+                <parameter kind='environment-variable' name='BROWSER_VERSION' value='undefined'/>
+                <parameter kind='environment-variable' name='PLATFORM' value='undefined'/>
+                <parameter kind='environment-variable' name='DEVICE' value='undefined'/>
+            </parameters>
+            <steps>
+                <step start='1648300890458' status='passed' stop='1648300895543'>
+                    <name>"before each" hook for webdriver.io page</name>
+                    <title>"before each" hook for webdriver.io page</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1648300895578' status='passed' stop='1648300895578'>
+                    <name>Title of the page: React App</name>
+                    <title>Title of the page: React App</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1648300898030' status='passed' stop='1648300898030'>
+                    <name>Counter number , Before click on Add :1 , and After click on Add:1</name>
+                    <title>Counter number , Before click on Add :1 , and After click on Add:1</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments>
+                <attachment title='Console Logs' source='a96d0bca-b2bd-44cb-98c0-5132d8a30f29-attachment.html' type='text/html' size='303'/>
+            </attachments>
+            <description type='text'>Should have same number count</description>
+        </test-case>
+        <test-case start='1648300898038' status='failed' stop='1648300906109'>
+            <name>should not have same number count</name>
+            <title>should not have same number count</title>
+            <labels>
+                <label name='language' value='javascript'/>
+                <label name='framework' value='wdio'/>
+                <label name='thread' value='0-0'/>
+                <label name='testId' value='TC-001should not have same number count'/>
+            </labels>
+            <parameters>
+                <parameter kind='argument' name='browser' value='chrome-99.0.4844.83'/>
+                <parameter kind='environment-variable' name='BROWSER' value='chrome'/>
+                <parameter kind='environment-variable' name='BROWSER_VERSION' value='undefined'/>
+                <parameter kind='environment-variable' name='PLATFORM' value='undefined'/>
+                <parameter kind='environment-variable' name='DEVICE' value='undefined'/>
+            </parameters>
+            <steps>
+                <step start='1648300898038' status='passed' stop='1648300903113'>
+                    <name>"before each" hook for webdriver.io page</name>
+                    <title>"before each" hook for webdriver.io page</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1648300903131' status='passed' stop='1648300903131'>
+                    <name>Title of the page: React App</name>
+                    <title>Title of the page: React App</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1648300905423' status='passed' stop='1648300905423'>
+                    <name>Counter number , Before click on Add :2 , and After click on Add:1</name>
+                    <title>Counter number , Before click on Add :2 , and After click on Add:1</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1648300905442' status='passed' stop='1648300905442'>
+                    <name>Error while comparing add counter. ERR: AssertionError [ERR_ASSERTION]: 2 and 1 are not equal</name>
+                    <title>Error while comparing add counter. ERR: AssertionError [ERR_ASSERTION]: 2 and 1 are not equal</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1648300905676' status='failed' stop='1648300905677'>
+                    <name>FaledStep</name>
+                    <title>FaledStep</title>
+                    <attachments>
+                        <attachment title='fail' source='f2d5e8f6-124c-44ff-aff1-1893e575cf4a-attachment.png' type='image/png' size='12888'/>
+                    </attachments>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments>
+                <attachment title='Console Logs' source='967750b5-4591-4156-b129-c53b2783b456-attachment.html' type='text/html' size='372'/>
+            </attachments>
+            <failure>
+                <message>2 and 1 are not equal      
+                      actual expected
+                      
+                      2'1'
+                      </message>
+                <stack-trace>AssertionError [ERR_ASSERTION]: 2 and 1 are not equal
+                    at /Users/ravi.chintakunta/Downloads/WebdriverIO-CI-investigation/src/test/specs/testsuite.ts:90:24
+                    at step (/Users/ravi.chintakunta/Downloads/WebdriverIO-CI-investigation/src/test/specs/testsuite.ts:33:23)
+                    at Object.next (/Users/ravi.chintakunta/Downloads/WebdriverIO-CI-investigation/src/test/specs/testsuite.ts:14:53)
+                    at fulfilled (/Users/ravi.chintakunta/Downloads/WebdriverIO-CI-investigation/src/test/specs/testsuite.ts:5:58)
+                    at processTicksAndRejections (node:internal/process/task_queues:96:5)</stack-trace>
+            </failure>
+            <description type='text'>Should not have same number count</description>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

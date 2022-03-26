@@ -1,0 +1,13 @@
+[ {
+  "values" : [ "chrome" ],
+  "name" : "BROWSER"
+}, {
+  "values" : [ "undefined" ],
+  "name" : "BROWSER_VERSION"
+}, {
+  "values" : [ "undefined" ],
+  "name" : "PLATFORM"
+}, {
+  "values" : [ "undefined" ],
+  "name" : "DEVICE"
+} ]

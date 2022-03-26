@@ -1,0 +1,175 @@
+{
+  "uid" : "54ec136c6a130bb0",
+  "name" : "should not have same number count",
+  "fullName" : "webdriver.io page.should not have same number count",
+  "historyId" : "91afc42b32e16c54c49c0c3284d1eac3",
+  "time" : {
+    "start" : 1648300898038,
+    "stop" : 1648300906109,
+    "duration" : 8071
+  },
+  "description" : "Should not have same number count",
+  "descriptionHtml" : "<p>Should not have same number count</p>\n",
+  "status" : "failed",
+  "statusMessage" : "2 and 1 are not equal      \n                      actual expected\n                      \n                      2'1'\n                      ",
+  "statusTrace" : "AssertionError [ERR_ASSERTION]: 2 and 1 are not equal\n                    at /Users/ravi.chintakunta/Downloads/WebdriverIO-CI-investigation/src/test/specs/testsuite.ts:90:24\n                    at step (/Users/ravi.chintakunta/Downloads/WebdriverIO-CI-investigation/src/test/specs/testsuite.ts:33:23)\n                    at Object.next (/Users/ravi.chintakunta/Downloads/WebdriverIO-CI-investigation/src/test/specs/testsuite.ts:14:53)\n                    at fulfilled (/Users/ravi.chintakunta/Downloads/WebdriverIO-CI-investigation/src/test/specs/testsuite.ts:5:58)\n                    at processTicksAndRejections (node:internal/process/task_queues:96:5)",
+  "flaky" : false,
+  "newFailed" : false,
+  "newBroken" : false,
+  "newPassed" : false,
+  "retriesCount" : 0,
+  "retriesStatusChange" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "status" : "failed",
+    "statusMessage" : "2 and 1 are not equal      \n                      actual expected\n                      \n                      2'1'\n                      ",
+    "statusTrace" : "AssertionError [ERR_ASSERTION]: 2 and 1 are not equal\n                    at /Users/ravi.chintakunta/Downloads/WebdriverIO-CI-investigation/src/test/specs/testsuite.ts:90:24\n                    at step (/Users/ravi.chintakunta/Downloads/WebdriverIO-CI-investigation/src/test/specs/testsuite.ts:33:23)\n                    at Object.next (/Users/ravi.chintakunta/Downloads/WebdriverIO-CI-investigation/src/test/specs/testsuite.ts:14:53)\n                    at fulfilled (/Users/ravi.chintakunta/Downloads/WebdriverIO-CI-investigation/src/test/specs/testsuite.ts:5:58)\n                    at processTicksAndRejections (node:internal/process/task_queues:96:5)",
+    "steps" : [ {
+      "name" : "\"before each\" hook for webdriver.io page",
+      "time" : {
+        "start" : 1648300898038,
+        "stop" : 1648300903113,
+        "duration" : 5075
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "Title of the page: React App",
+      "time" : {
+        "start" : 1648300903131,
+        "stop" : 1648300903131,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "Counter number , Before click on Add :2 , and After click on Add:1",
+      "time" : {
+        "start" : 1648300905423,
+        "stop" : 1648300905423,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "Error while comparing add counter. ERR: AssertionError [ERR_ASSERTION]: 2 and 1 are not equal",
+      "time" : {
+        "start" : 1648300905442,
+        "stop" : 1648300905442,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "FaledStep",
+      "time" : {
+        "start" : 1648300905676,
+        "stop" : 1648300905677,
+        "duration" : 1
+      },
+      "status" : "failed",
+      "statusMessage" : "AssertionError [ERR_ASSERTION]: 2 and 1 are not equal\n                    at /Users/ravi.chintakunta/Downloads/WebdriverIO-CI-investigation/src/test/specs/testsuite.ts:90:24\n                    at step (/Users/ravi.chintakunta/Downloads/WebdriverIO-CI-investigation/src/test/specs/testsuite.ts:33:23)\n                    at Object.next (/Users/ravi.chintakunta/Downloads/WebdriverIO-CI-investigation/src/test/specs/testsuite.ts:14:53)\n                    at fulfilled (/Users/ravi.chintakunta/Downloads/WebdriverIO-CI-investigation/src/test/specs/testsuite.ts:5:58)\n                    at processTicksAndRejections (node:internal/process/task_queues:96:5)",
+      "steps" : [ ],
+      "attachments" : [ {
+        "uid" : "1c10e49d2b986a3b",
+        "name" : "fail",
+        "source" : "1c10e49d2b986a3b.png",
+        "type" : "image/png",
+        "size" : 12888
+      } ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 1,
+      "shouldDisplayMessage" : true,
+      "hasContent" : true
+    } ],
+    "attachments" : [ {
+      "uid" : "69cf7686c9111ba4",
+      "name" : "Console Logs",
+      "source" : "69cf7686c9111ba4.html",
+      "type" : "text/html",
+      "size" : 372
+    } ],
+    "parameters" : [ ],
+    "stepsCount" : 5,
+    "attachmentsCount" : 2,
+    "shouldDisplayMessage" : true,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "framework",
+    "value" : "wdio"
+  }, {
+    "name" : "language",
+    "value" : "javascript"
+  }, {
+    "name" : "testId",
+    "value" : "TC-001should not have same number count"
+  }, {
+    "name" : "thread",
+    "value" : "0-0"
+  }, {
+    "name" : "suite",
+    "value" : "webdriver.io page"
+  }, {
+    "name" : "testClass",
+    "value" : "webdriver.io page"
+  }, {
+    "name" : "testMethod",
+    "value" : "should not have same number count"
+  }, {
+    "name" : "package",
+    "value" : "webdriver.io page"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure1"
+  } ],
+  "parameters" : [ {
+    "name" : "browser",
+    "value" : "chrome-99.0.4844.83"
+  } ],
+  "links" : [ {
+    "name" : "TC-001should not have same number count",
+    "url" : "TC-001should not have same number count",
+    "type" : "tms"
+  } ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ {
+      "name" : "Product defects",
+      "matchedStatuses" : [ ],
+      "flaky" : false
+    } ],
+    "tags" : [ ]
+  },
+  "source" : "54ec136c6a130bb0.json",
+  "parameterValues" : [ "chrome-99.0.4844.83" ]
+}

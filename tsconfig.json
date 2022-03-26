@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+   // "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    //"target": "ES2015",
+    "baseUrl": ".",
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "paths": {
+      "*": [ "./*" ]
+    },
+    "types": ["node", "webdriverio/async", "@wdio/mocha-framework"]
+  },
+  "include": [
+    "src"
+    //"./config/**/*.ts",
+   // "./test/*/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

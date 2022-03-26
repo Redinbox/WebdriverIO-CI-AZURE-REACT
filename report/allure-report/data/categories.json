@@ -1,0 +1,30 @@
+{
+  "uid" : "4b4757e66a1912dae1a509f688f20b0f",
+  "children" : [ {
+    "name" : "Product defects",
+    "children" : [ {
+      "name" : "2 and 1 are not equal      \n                      actual expected\n                      \n                      2'1'\n                      ",
+      "children" : [ {
+        "name" : "should not have same number count",
+        "uid" : "54ec136c6a130bb0",
+        "parentUid" : "35717877286eb1b6ab704093479af62d",
+        "status" : "failed",
+        "time" : {
+          "start" : 1648300898038,
+          "stop" : 1648300906109,
+          "duration" : 8071
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "newPassed" : false,
+        "newBroken" : false,
+        "retriesCount" : 0,
+        "retriesStatusChange" : false,
+        "parameters" : [ "chrome-99.0.4844.83" ]
+      } ],
+      "uid" : "35717877286eb1b6ab704093479af62d"
+    } ],
+    "uid" : "8fb3a91ba5aaf9de24cc8a92edc82b5d"
+  } ],
+  "name" : "categories"
+}

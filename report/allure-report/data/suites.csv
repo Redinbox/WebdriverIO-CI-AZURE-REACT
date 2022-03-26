@@ -1,0 +1,3 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"failed","Sat Mar 26 18:51:38 IST 2022","Sat Mar 26 18:51:46 IST 2022","8071","","webdriver.io page","","webdriver.io page","should not have same number count","should not have same number count","Should not have same number count"
+"passed","Sat Mar 26 18:51:30 IST 2022","Sat Mar 26 18:51:38 IST 2022","7580","","webdriver.io page","","webdriver.io page","Should have same number count","Should have same number count","Should have same number count"

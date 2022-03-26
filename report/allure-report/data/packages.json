@@ -1,0 +1,43 @@
+{
+  "uid" : "83edc06c07f9ae9e47eb6dd1b683e4e2",
+  "children" : [ {
+    "name" : "webdriver.io page",
+    "children" : [ {
+      "name" : "Should have same number count",
+      "uid" : "c60ba06431d901dd",
+      "parentUid" : "4f7d17744ecdbd5cba658ae19edb9617",
+      "status" : "passed",
+      "time" : {
+        "start" : 1648300890457,
+        "stop" : 1648300898037,
+        "duration" : 7580
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "newPassed" : false,
+      "newBroken" : false,
+      "retriesCount" : 0,
+      "retriesStatusChange" : false,
+      "parameters" : [ "chrome-99.0.4844.83" ]
+    }, {
+      "name" : "should not have same number count",
+      "uid" : "54ec136c6a130bb0",
+      "parentUid" : "4f7d17744ecdbd5cba658ae19edb9617",
+      "status" : "failed",
+      "time" : {
+        "start" : 1648300898038,
+        "stop" : 1648300906109,
+        "duration" : 8071
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "newPassed" : false,
+      "newBroken" : false,
+      "retriesCount" : 0,
+      "retriesStatusChange" : false,
+      "parameters" : [ "chrome-99.0.4844.83" ]
+    } ],
+    "uid" : "webdriver.io page"
+  } ],
+  "name" : "packages"
+}
