@@ -19,8 +19,8 @@ steps:
     npm install
     npm run build
     npm run start
-  displayName: 'npm install and build'
+  displayName: 'npm install , build and start app'
 - script: |
     npm run test:wdio
     npm run allure:open
-  displayName: 'npm run wdio script'
+  displayName: 'npm run wdio tests'
