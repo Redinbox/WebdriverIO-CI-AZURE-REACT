@@ -20,11 +20,11 @@ steps:
     npm run build
     npm run ci:wdio
   displayName: 'npm install , build , start app and run wdio tests'
-  continueOnError: false
+  continueOnError: true
 - task: PublishTestResults@2
+  displayName: 'Publish Results'
   inputs:
-    displayName: 'Publish Results'
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/test-report.xml'
     mergeTestResults: true
-    condition: succeededOrFailed()
+  condition: succeededOrFailed()
