@@ -23,6 +23,8 @@ steps:
   continueOnError: false
 - task: PublishTestResults@2
   inputs:
+    displayName: 'Publish Results'
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/test-report.xml'
     mergeTestResults: true
+    condition: succeededOrFailed()
