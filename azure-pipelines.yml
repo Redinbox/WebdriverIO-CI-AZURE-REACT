@@ -20,7 +20,13 @@ steps:
     npm run build
     npm run start
   displayName: 'npm install , build and start app'
+  continueOnError: false
 - script: |
-    npm run test:wdio
+    npx ci:wdio
     npm run allure:open
   displayName: 'run wdio tests'
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/test-report.xml'
+    mergeTestResults: true
