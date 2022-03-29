@@ -26,6 +26,7 @@ exports.config = {
 
         maxInstances: 5,
         browserName: 'chrome',
+        acceptInsecureCerts: true,
         'goog:chromeOptions': { args: ['headless', 'disable-gpu'] }
 
     }],
@@ -75,8 +76,8 @@ exports.config = {
 
     onPrepare: function () {
         console.log("<<<On Preparing >>>");
-        console.log("allure results" + fs.existsSync("./report/allure-results"));
-        console.log("allure reports" + fs.existsSync("./report/allure-reports"));
+        console.log("allure results: " + fs.existsSync("./report/allure-results"));
+        console.log("allure reports: " + fs.existsSync("./report/allure-reports"));
         setTimeout(() => {
             console.log("Wait before all workers gets launched");
         }, 5000);
