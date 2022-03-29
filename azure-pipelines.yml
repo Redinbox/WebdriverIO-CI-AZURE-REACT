@@ -18,13 +18,9 @@ steps:
 - script: |
     npm install
     npm run build
-    npm run start
-  displayName: 'npm install , build and start app'
+    npm run ci:wdio
+  displayName: 'npm install , build , start app and run wdio tests'
   continueOnError: false
-- script: |
-    npx ci:wdio
-    npm run allure:open
-  displayName: 'run wdio tests'
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
