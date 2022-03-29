@@ -48,7 +48,14 @@ exports.config = {
     // Default request retries count
     connectionRetryCount: 3,
 
-    services: ['selenium-standalone'],
+    services:[
+        ['chromedriver', {
+            logFileName: 'wdio-chromedriver.log', // default
+            outputDir: 'driver-logs', // overwrites the config.outputDir
+            args: ['--silent']
+        }]
+    ],
+        //['selenium-standalone'],
 
     framework: 'mocha',
 
