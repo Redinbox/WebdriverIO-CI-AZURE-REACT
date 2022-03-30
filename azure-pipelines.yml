@@ -4,34 +4,29 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
+  - master
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '16.x'
-  displayName: 'Install Node.js'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '16.x'
+    displayName: 'Install Node.js'
 
-- script: |
-    npm install
-    npm run build
-    npm run ci:wdio
-  displayName: 'npm install , build , start app and run wdio tests'
-  continueOnError: true
-
-- task: AllureGenerate@1
-  inputs:
-    resultsDir: 'allure-results'
-    targetDir: 'allure-report/$(Build.BuildNumber)'
-- task: PublishTestResults@2
-  displayName: 'Publish Results'
-  inputs:
-    testResultsFormat: "JUnit"
-    testResultsFiles: "results/*.xml"
-    searchFolder: $(System.DefaultWorkingDirectory)
-    mergeTestResults: true
-    testRunTitle: 'Test Results'
-  continueOnError: true
+  - script: |
+      npm install
+      npm run build
+      npm run ci:wdio
+    displayName: 'npm install , build , start app and run wdio tests'
+    continueOnError: true
+  - task: PublishTestResults@2
+    displayName: 'Publish Results'
+    inputs:
+      testResultsFormat: "JUnit"
+      testResultsFiles: "results/*.xml"
+      searchFolder: $(System.DefaultWorkingDirectory)
+      mergeTestResults: true
+      testRunTitle: 'Test Results'
+    continueOnError: true
