@@ -24,7 +24,8 @@ steps:
 - task: PublishTestResults@2
   displayName: 'Publish Results'
   inputs:
+    testResultsFiles: $(Build.SourcesDirectory)/test-results/junit.xml
+    testRunTitle: typescript-selenium-webdriver-sample ($(imageName) $(browser))
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/test-report.xml'
     mergeTestResults: true
   condition: succeededOrFailed()
