@@ -28,7 +28,7 @@ steps:
   displayName: 'Publish Results'
   inputs:
     testResultsFormat: "JUnit"
-    testResultsFiles: "output/wr-results.xml"
+    testResultsFiles: "/output/wr-results.xml"
     searchFolder: '$(System.DefaultWorkingDirectory)/WebdriverIO-CI-AZURE-REACT'
     mergeTestResults: true
     testRunTitle: 'Test Results'
