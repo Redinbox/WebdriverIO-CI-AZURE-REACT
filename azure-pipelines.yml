@@ -21,6 +21,11 @@ steps:
     npm run ci:wdio
   displayName: 'npm install , build , start app and run wdio tests'
   continueOnError: true
+
+- task: AllureGenerate@1
+  inputs:
+    resultsDir: 'allure-results'
+    targetDir: 'allure-report/$(Build.BuildNumber)'
 - task: PublishTestResults@2
   displayName: 'Publish Results'
   inputs:
