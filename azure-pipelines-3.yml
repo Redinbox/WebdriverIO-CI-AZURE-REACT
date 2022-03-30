@@ -22,12 +22,14 @@ steps:
     npm run ci:wdio
   displayName: 'npm install , build , start app and run wdio tests'
   continueOnError: true
+- script: |
+      echo $(System.DefaultWorkingDirectory)/output
 - task: PublishTestResults@2
   displayName: 'Publish Results'
   inputs:
     testResultsFormat: "JUnit"
-    testResultsFiles: "wr-results.xml"
-    searchFolder: '$(System.DefaultWorkingDirectory)/output'
+    testResultsFiles: "**/output/wr-results.xml"
+    searchFolder: '$(System.DefaultWorkingDirectory)'
     mergeTestResults: true
     testRunTitle: 'Test Results'
     publishRunAttachments: true
