@@ -25,8 +25,9 @@ steps:
   displayName: 'Publish Results'
   inputs:
     testResultsFormat: "JUnit"
-    testResultsFiles: "wr-results.xml"
-    searchFolder: '$(System.DefaultWorkingDirectory)/output'
+    testResultsFiles: "**/wr-results.xml"
+    searchFolder: '$(System.DefaultWorkingDirectory)/'
     mergeTestResults: true
     testRunTitle: 'Test Results'
+    publishRunAttachments: true
   continueOnError: true
