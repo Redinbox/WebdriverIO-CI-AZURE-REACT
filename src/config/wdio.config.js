@@ -152,7 +152,7 @@ exports.config = {
         var filename = 'TESTFAIL_' + browserName + '_' + timestamp + '.png';
         var filePath = path.join(this.screenshotPath, filename);
         // save screenshot
-        await browser.saveScreenshot();
+        await browser.saveScreenshot(filePath);
         console.log('\tSaved screenshot: ', filePath);
 
         if (error) {
