@@ -2,6 +2,11 @@ import assert = require("assert");
 import allureReporter, { Status } from "@wdio/allure-reporter";
 
 describe('webdriver.io page', async()=> {
+
+    beforeAll(() => {
+        console.log('\n-- Tests started --');
+    });
+
     beforeEach(async () => {
         console.log("Before Each Test");
         await browser.url("./");
@@ -108,4 +113,8 @@ describe('webdriver.io page', async()=> {
             throw e;
         }
     })
+
+    afterAll(function() {
+        console.log('\n-- Tests finished --');
+    });
 })

@@ -62,6 +62,15 @@ exports.config = {
 
     reporters: [
         'spec',
+        ['junit', {
+            outputDir: './output/',
+            outputFileFormat: function(opts) {
+                return `wr-results.xml`;
+            }
+        }]
+        ],
+    /**reporters: [
+        'spec',
         [
             'allure',
             {
@@ -72,7 +81,7 @@ exports.config = {
                 addConsoleLogs: true,
             },
         ],
-    ],
+    ],*/
 
     //
     // Options to be passed to Mocha.
@@ -135,15 +144,20 @@ exports.config = {
     ) {
         log.debug(`Test "${test.title}" finished`);
 
-        if (!passed || error) {
-            try {
-                await browser.takeScreenshot();
-            } catch (error) {
-                console.log("Error capturing screenshot: ", error);
-            }
+        if (passed) {
+            return;
         }
+        var browserName = browser.capabilities.browserName;
+        var timestamp = new Date().toJSON().replace(/:/g, '-');
+        var filename = 'TESTFAIL_' + browserName + '_' + timestamp + '.png';
+        var filePath = path.join(this.screenshotPath, filename);
+        // save screenshot
+        await browser.saveScreenshot();
+        console.log('\tSaved screenshot: ', filePath);
+
         if (error) {
             await browser.takeScreenshot();
+            console.log("Error capturing screenshot: ", error);
         } else {
             console.log("after the test ,test was passed");
         }
