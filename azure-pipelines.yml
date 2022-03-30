@@ -1,4 +1,5 @@
 # Node.js
+
 # Build a general Node.js project with npm.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
@@ -21,6 +22,12 @@ steps:
     npm run ci:wdio
   displayName: 'npm install , build , start app and run wdio tests'
   continueOnError: true
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
+    testRunTitle: 'Test for WR'
 - task: PublishTestResults@2
   displayName: 'Publish Results'
   inputs:
