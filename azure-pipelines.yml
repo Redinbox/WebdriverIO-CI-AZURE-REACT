@@ -26,7 +26,6 @@ steps:
   inputs:
     testResultsFormat: "JUnit"
     testResultsFiles: "output/*.xml"
-    searchFolder: $(System.DefaultWorkingDirectory)
     mergeTestResults: true
     testRunTitle: 'Test Results'
   continueOnError: true
