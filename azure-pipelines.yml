@@ -22,18 +22,12 @@ steps:
     npm run ci:wdio
   displayName: 'npm install , build , start app and run wdio tests'
   continueOnError: true
-
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
-    testRunTitle: 'Test for WR'
 - task: PublishTestResults@2
   displayName: 'Publish Results'
   inputs:
     testResultsFormat: "JUnit"
     testResultsFiles: "**/wr-results.xml"
-    searchFolder: '$(System.DefaultWorkingDirectory)/'
+    searchFolder: '$(System.DefaultWorkingDirectory)/WebdriverIO-CI-AZURE-REACT/'
     mergeTestResults: true
     testRunTitle: 'Test Results'
     publishRunAttachments: true
