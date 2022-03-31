@@ -25,3 +25,4 @@ steps:
     testResultsFormat: 'JUnit'
     testResultsFiles: 'wr-results.xml'
     searchFolder: '$(System.DefaultWorkingDirectory)/_Redinbox_WebdriverIO-CI-AZURE-REACT/output'
+continueOnError: true
