@@ -30,6 +30,6 @@ steps:
   continueOnError: true
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(System.DefaultWorkingDirect/output'
+    targetPath: '$(System.DefaultWorkingDirectory)/output'
     artifact: 'JunitReport'
     publishLocation: 'pipeline'
