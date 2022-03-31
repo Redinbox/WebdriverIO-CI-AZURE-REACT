@@ -24,6 +24,6 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: 'output/wr-results.xml'
-    searchFolder: '$(System.DefaultWorkingDirectory)'
+    testResultsFiles: 'wr-results.xml'
+    searchFolder: '$(System.DefaultWorkingDirectory)/output'
   continueOnError: true
