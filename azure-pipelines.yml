@@ -20,9 +20,10 @@ steps:
     npm run build
     npm run ci:wdio
   displayName: 'npm install and build'
+  continueOnError: true
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: 'wr-results.xml'
     searchFolder: '$(System.DefaultWorkingDirectory)/_Redinbox_WebdriverIO-CI-AZURE-REACT/output'
-continueOnError: true
+  continueOnError: true
