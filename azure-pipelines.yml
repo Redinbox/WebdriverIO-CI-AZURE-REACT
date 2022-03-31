@@ -19,6 +19,7 @@ steps:
     npm install
     npm run build
     npm run ci:wdio
+    npm run generate:allure
   displayName: 'npm install and build'
   continueOnError: true
 - task: PublishTestResults@2
@@ -27,3 +28,8 @@ steps:
     testResultsFiles: 'wr-results.xml'
     searchFolder: '$(System.DefaultWorkingDirectory)/output'
   continueOnError: true
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(System.DefaultWorkingDirectory/screenshots'
+    artifact: 'JunitReport'
+    publishLocation: 'pipeline'
