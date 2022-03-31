@@ -24,6 +24,6 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: 'wr-results.xml'
-    searchFolder: '$(System.DefaultWorkingDirectory)/_Redinbox_WebdriverIO-CI-AZURE-REACT/output'
+    testResultsFiles: 'output/wr-results.xml'
+    searchFolder: '$(System.DefaultWorkingDirectory)'
   continueOnError: true
