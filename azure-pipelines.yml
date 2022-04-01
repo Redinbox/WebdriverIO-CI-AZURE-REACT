@@ -37,3 +37,8 @@ steps:
     artifact: 'Allure Results'
     publishLocation: 'pipeline'
   continueOnError: true
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(System.DefaultWorkingDirectory)/report/report/allure-report/index.html'
+    artifact: 'htmlreport'
+    publishLocation: 'pipeline'
