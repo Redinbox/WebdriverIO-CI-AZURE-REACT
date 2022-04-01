@@ -38,15 +38,11 @@ exports.config = {
     bail: 0,
 
     baseUrl: 'http://localhost:3000',
-    //
-    // Default timeout for all waitFor* commands.
+
     waitforTimeout: 10000,
-    //
-    // Default timeout in milliseconds for request
-    // if browser driver or grid doesn't send response
+
     connectionRetryTimeout: 90000,
-    //
-    // Default request retries count
+
     connectionRetryCount: 3,
 
     /**services:[
@@ -62,26 +58,29 @@ exports.config = {
 
     reporters: [
         'spec',
-        ['junit', {
+        /**['junit', {
             outputDir: './output/',
             outputFileFormat: function(opts) {
                 return `wr-results.xml`;
-            }
-        }]
-        ],
-    /**reporters: [
-        'spec',
-        [
-            'allure',
+            },
+            errorOptions: {
+                error: 'message',
+                failure: 'message',
+                stacktrace: 'stack'
+                //screenshot: 'screenshot'
+            },
+            stdout: false
+        }]*/
+            ['allure',
             {
                 outputDir: 'report/allure-results',
                 disableWebdriverStepsReporting: true,
                 disableWebdriverScreenshotsReporting: true,
                 disableMochaHooks: true,
                 addConsoleLogs: true,
-            },
-        ],
-    ],*/
+            }
+            ]
+    ],
 
     //
     // Options to be passed to Mocha.
