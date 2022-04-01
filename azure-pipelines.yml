@@ -28,11 +28,6 @@ steps:
     testResultsFiles: 'wr-results.xml'
     searchFolder: '$(System.DefaultWorkingDirectory)/output'
   continueOnError: true
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(System.DefaultWorkingDirectory)/screenshots'
-    artifact: 'JunitReport'
-    publishLocation: 'pipeline'
 - task: CopyPublishBuildArtifacts@1
   inputs:
     CopyRoot: '$(System.DefaultWorkingDirectory)/report/allure-results'
