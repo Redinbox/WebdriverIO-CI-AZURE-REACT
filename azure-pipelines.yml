@@ -42,3 +42,10 @@ steps:
     targetPath: '$(System.DefaultWorkingDirectory)/report/allure-report/index.html'
     artifact: 'htmlreport'
     publishLocation: 'pipeline'
+  continueOnError: true
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/report'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+  continueOnError: true
