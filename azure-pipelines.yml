@@ -33,3 +33,16 @@ steps:
     targetPath: '$(System.DefaultWorkingDirectory)/screenshots'
     artifact: 'JunitReport'
     publishLocation: 'pipeline'
+- task: CopyPublishBuildArtifacts@1
+  inputs:
+    CopyRoot: '$(System.DefaultWorkingDirectory)/report/allure-results'
+    Contents: 'Allure reports'
+    ArtifactName: 'Allure reports'
+    ArtifactType: 'Container'
+  continueOnError: true
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'Allure Results'
+    publishLocation: 'Container'
+  continueOnError: true
