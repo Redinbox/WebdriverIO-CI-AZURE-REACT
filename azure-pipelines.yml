@@ -31,6 +31,10 @@ steps:
     testResultsFiles: 'wr-results.xml'
     searchFolder: '$(System.DefaultWorkingDirectory)/output'
   continueOnError: true
+- task: PublishTestResultScreenshot@0
+  displayName: 'Publish test result screenshot'
+  inputs:
+    organization: 'http://dev.azure.com/kobo.com'
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(System.DefaultWorkingDirectory)/report'
