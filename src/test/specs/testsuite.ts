@@ -40,7 +40,7 @@ describe('webdriver.io page', async()=> {
             );
         }
     }catch (e) {
-            console.log("Error while comparing add counter")
+            console.log(`Error while comparing add counter. ERR: ${e}`)
             allureReporter.addStep(
                 "FaledStep",
                 {
@@ -70,7 +70,7 @@ describe('webdriver.io page', async()=> {
             const add = await $('[role=button]')
             const counter = $('.counter')
             const isdisplayed = await add.isDisplayed()
-            const expNumber: number = 2
+            const expNumber: number = 3
             let actualCounter: number
             if (isdisplayed) {
                 await add.click()
@@ -78,12 +78,12 @@ describe('webdriver.io page', async()=> {
                 const counterText = await counter.getText()
                 actualCounter = parseInt(counterText);
                 console.log("counter text: " + actualCounter)
-                allureReporter.addStep(
+                /**allureReporter.addStep(
                     "Counter number , Before click on Add :" +
                     expNumber +
                     " , and After click on Add:" +
                     actualCounter
-                );
+                );*/
                 assert.equal(
                     expNumber,
                     counterText,
@@ -91,7 +91,7 @@ describe('webdriver.io page', async()=> {
                 );
             }
         }catch (e) {
-            console.log("Error while comparing add counter")
+            console.log(`Error while comparing add counter. ERR: ${e}`)
              allureReporter.addStep(
                 `Error while comparing add counter. ERR: ${e}`,
                 "failed"
@@ -109,4 +109,60 @@ describe('webdriver.io page', async()=> {
             throw e;
         }
     })
+    it.skip('should not have same number count', async() => {
+        try {
+            allureReporter.addDescription("Should not have same number count", "Test Description")
+            console.log("Test started")
+            const title = await browser.getTitle()
+            console.log("Title: " + title)
+            allureReporter.addStep("Title of the page: " + title)
+            const BUTTON_ADD = "//button[contains(text(),'Add')]"
+            const COUNTER = '.counter'
+            const add = await $('[role=button]')
+            const counter = $('.counter')
+            const isdisplayed = await add.isDisplayed()
+            const expNumber: number = 2
+            let actualCounter: number
+            if (isdisplayed) {
+                await add.click()
+                await browser.pause(2000)
+                const counterText = await counter.getText()
+                actualCounter = parseInt(counterText);
+                console.log("counter text: " + actualCounter)
+
+                assert.equal(
+                    expNumber,
+                    counterText,
+                    `${expNumber} and ${counterText} are not equal`
+                );
+            }
+        }catch (e) {
+            console.log(`Error while comparing add counter. ERR: ${e}`)
+            allureReporter.addStep(
+             `Error while comparing add counter. ERR: ${e}`,
+             "failed"
+             );
+            allureReporter.addStep(
+             "FaledStep",
+             {
+                    name: "fail",
+                    type: "image/png",
+                    content: Buffer.from(await browser.takeScreenshot(), "base64"),
+                },
+             "failed"
+             );
+             allureReporter.endStep("failed");
+
+        }
+    })
+    afterEach(async () => {
+        console.log("after Each Test");
+
+        try{
+
+        }catch (e) {
+            console.log(`After Each. ERR: ${e}`)
+            throw e;
+        }
+    });
 })

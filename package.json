@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@rpii/wdio-html-reporter": "^7.7.1",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
@@ -24,6 +25,7 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.10.0",
     "expect": "^27.5.1",
+    "junit-report-builder": "^3.0.0",
     "mkdirp": "^1.0.4",
     "prettier": "^2.4.1",
     "process": "^0.11.10",
@@ -33,7 +35,9 @@
     "rimraf": "^3.0.2",
     "start-server-and-test": "^1.14.0",
     "tsconfig-paths": "^3.12.0",
+    "typescript-string-operations": "^1.4.1",
     "wait-on": "^6.0.1",
+    "wdio-html-nice-reporter": "^8.0.0",
     "wdio-reportportal-reporter": "^7.4.1",
     "wdio-safaridriver-service": "^0.0.1",
     "web-vitals": "^2.1.4",
@@ -46,10 +50,13 @@
     "@wdio/mocha-framework": "^7.19.2",
     "@wdio/selenium-standalone-service": "^7.19.1",
     "@wdio/spec-reporter": "^7.19.1",
+    "@wdio/types": "^7.8.0",
     "chromedriver": "^99.0.0",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.3",
     "wdio-chromedriver-service": "^7.3.2",
+    "wdio-fefanf-html-reporter": "^0.0.8",
+    "wdio-html-format-reporter": "^0.4.0",
     "wdio-junit-reporter": "^0.4.4"
   },
   "scripts": {
@@ -65,7 +72,9 @@
     "e2e:ci:app": "cross-env BROWSER=none PORT=40002 npm start",
     "pree2e:ci:run": "wait-on -t 30000 http-get://localhost:40002",
     "e2e:ci:run": "npx wdio run ./src/config/wdio.config.js --baseUrl http://localhost:40002",
-    "allure:open": "allure generate ./report/allure-results/  -o ./report/allure-report/ --clean && allure open ./report/allure-report"
+    "junit-report": "node_modules/.bin/junit-viewer --results=./test/reports/junit-results --save=junit-results.html && open junit-results.html",
+    "allure:open": "allure generate ./report/allure-results/  -o ./report/allure-report/ --clean && allure open ./report/allure-report",
+    "postinstall": "rimraf -rm node_modules/wdio-html-nice-reporter/node_modules/@wdio/types"
   },
   "eslintConfig": {
     "extends": [
