@@ -45,7 +45,6 @@ steps:
       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
       $UriOrga = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/" 
       $uriAccount = $UriOrga + "_apis/test/runs?api-version=6.0"
-      
       $response = Invoke-RestMethod -Uri $uriAccount -Headers $AzureDevOpsAuthenicationHeader -Method Get
       $testRunsIdSorted = $response.value | sort-object id -Descending
       $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE_apis/test/runs/$($testRunsIdSorted[0].id)?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
@@ -59,24 +58,16 @@ steps:
       $AzureDevOpsPAT = {PAT}
       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
       $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs/$(runId)/results?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
-      
-      #List all test result  get the test result ID via result
       foreach($Run in $result.value){
-      
-      #Get the test result ID via result
       If($Run.outcome -eq "Failed"){
       $TestResultID = $Run.id
       $TestTitle=$Run.testCase.name
       $CharArray =$TestTitle.Split(".")
       $TestCase=$CharArray[6]
-      
       $CharArraytwo=$TestCase.Split("(")
       $TestName =$CharArraytwo[0]
-      
       $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)\{Source alias}\tests\{testproject}\bin\Release\$TestName.png")
       $Base64file= [Convert]::ToBase64String($file)
-      
-      #Add attachment via test run ID and test result ID
       $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$(runId)/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
       
       $body =@"
