@@ -47,7 +47,7 @@ steps:
       $uriAccount = $UriOrga + "_apis/test/runs?api-version=6.0"
       $response = Invoke-RestMethod -Uri $uriAccount -Headers $AzureDevOpsAuthenicationHeader -Method Get
       $testRunsIdSorted = $response.value | sort-object id -Descending
-      $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE_apis/test/runs/$($testRunsIdSorted[0].id)?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
+      $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs/$($testRunsIdSorted[0].id)?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
       Write-Host "results = $($result | ConvertTo-Json -Depth 100)"
       Write-Host "##vso[task.setvariable variable=runId]$($result.id | ConvertTo-Json -Depth 100)"
   continueOnError: true
