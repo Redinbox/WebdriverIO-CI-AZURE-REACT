@@ -18,9 +18,12 @@ steps:
 - script: |
     npm install
     npm run build
+  displayName: 'npm install and build'
+  continueOnError: true
+- script: |
     npm run ci:wdio
     npm run generate:allure
-  displayName: 'npm install and build'
+  displayName: 'Run wdio tests and generate allure reports'
   continueOnError: true
 - task: PublishTestResults@2
   inputs:
@@ -28,8 +31,25 @@ steps:
     testResultsFiles: 'wr-results.xml'
     searchFolder: '$(System.DefaultWorkingDirectory)/output'
   continueOnError: true
+- task: PublishTestResultScreenshot@0
+  displayName: 'Publish test result screenshot'
+  inputs:
+    organization: 'http://dev.azure.com/kobo.com'
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(System.DefaultWorkingDirectory)/screenshots'
-    artifact: 'JunitReport'
+    targetPath: '$(System.DefaultWorkingDirectory)/report'
+    artifact: 'Allure Results'
     publishLocation: 'pipeline'
+  continueOnError: true
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(System.DefaultWorkingDirectory)/report/allure-report/index.html'
+    artifact: 'htmlreport'
+    publishLocation: 'pipeline'
+  continueOnError: true
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/report'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+  continueOnError: true
