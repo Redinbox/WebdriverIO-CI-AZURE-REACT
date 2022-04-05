@@ -46,7 +46,7 @@ steps:
       $AzureDevOpsPAT = {PAT}
       echo 'PAT/n'+AzureDevOpsPAT
       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
-      $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs/72/results?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
+      $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/_apis/test/runs/72/results?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
       echo $result
       #List all test result  get the test result ID via result
       foreach($Run in $result.value){
@@ -59,7 +59,7 @@ steps:
       
       
       #Add attachment via test run ID and test result ID
-      $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$(runId)/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
+      $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/_apis/test/Runs/$(runId)/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
       
       $body =@"
       {
