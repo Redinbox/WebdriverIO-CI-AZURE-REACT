@@ -41,34 +41,18 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      $AzureDevOpsPAT = {PAT}
+      AzureDevOpsPAT = {PAT}
       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
-      $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs/$(runId)/results?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
-      echo $result
-      #List all test result  get the test result ID via result
-      foreach($Run in $result.value){
-      echo $Run.outcome
-      #Get the test result ID via result
-      If($Run.outcome -eq "Failed"){
-      $TestResultID = $Run.id
-      $Name=$Run.testCase.name
-      Write-Host $TestResultID $Name
+      $UriOrga = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/" 
+      $uriAccount = $UriOrga + "_apis/test/runs?api-version=6.0"
       
-      
-      #Add attachment via test run ID and test result ID
-      $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$(runId)/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
-      
-      $body =@"
-      {
-        "stream": "abc",
-        "fileName": "$(System.DefaultWorkingDirectory)/$Name.png",
-        "comment": "Test attachment upload",
-        "attachmentType": "GeneralAttachment"
-      }
-      "@
-      $TestResultAttachmentResult = Invoke-RestMethod -Uri $TestResultAttachmentURL -ContentType "application/json" -Body $body -Headers $AzureDevOpsAuthenicationHeader -Method POST
-      }
-      }
+      $response = Invoke-RestMethod -Uri $uriAccount -Headers $AzureDevOpsAuthenicationHeader -Method Get
+      echo $response
+      $testRunsIdSorted = $response.value | sort-object id -Descending
+      echo $testRunsIdSorted
+      $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs/$($testRunsIdSorted[0].id)?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
+      Write-Host "results = $($result | ConvertTo-Json -Depth 100)"
+      Write-Host "##vso[task.setvariable variable=runId]$($result.id | ConvertTo-Json -Depth 100)"
   continueOnError: true
 - task: PowerShell@2
   inputs:
