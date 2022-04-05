@@ -31,15 +31,119 @@ steps:
     testResultsFiles: 'wr-results.xml'
     searchFolder: '$(System.DefaultWorkingDirectory)/output'
   continueOnError: true
-- task: PublishTestResultScreenshot@0
-  displayName: 'Publish test result screenshot'
-  inputs:
-    organization: 'http://dev.azure.com/kobo.com'
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(System.DefaultWorkingDirectory)/report'
     artifact: 'Allure Results'
     publishLocation: 'pipeline'
+  continueOnError: true
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)/screenshots/$*.png")
+      $Base64file= [Convert]::ToBase64String($file)
+      echo $Base64file
+      
+      
+      $token = "PAT"
+      
+      $url="https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$(runId)/results/$($TestResultID)/attachments?api-version=6.0-preview.1"
+      
+      $token = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($token)"))
+      
+      $JSON = "
+          {
+             `"stream`": `"$Base64file`",
+             `"fileName`": `"$Name.png`",
+             `"comment`": `"Test attachment upload`",
+             `"attachmentType`": `"GeneralAttachment`"
+          }"
+      
+      
+      $response = Invoke-RestMethod -Uri $url -Headers @{Authorization = "Basic $token"} -Method Post -Body $JSON -ContentType application/json
+      echo 'response/n' $response
+  continueOnError: true
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $connectionToken="Personal Access Token"
+      
+      $base64AuthInfo= [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($connectionToken)"))
+      
+      $url = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs?api-version=6.0"
+      
+      $results= Invoke-RestMethod -Uri $trurl -Headers @{authorization = "Basic $base64AuthInfo"} -Method Get
+      echo 'results /n' $results
+      $run = $results.value | Where-Object{$_.name -match $buildId}
+      echo 'run /n' $run
+      $runId = $run.id
+      echo 'run id/n' $runId
+  continueOnError: true
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $AzureDevOpsPAT = {PAT}
+      $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
+      $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs/72/results?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
+      echo $result
+      #List all test result  get the test result ID via result
+      foreach($Run in $result.value){
+      echo $Run.outcome
+      #Get the test result ID via result
+      If($Run.outcome -eq "Failed"){
+      $TestResultID = $Run.id
+      $Name=$Run.testCase.name
+      Write-Host $TestResultID $Name
+      
+      
+      #Add attachment via test run ID and test result ID
+      $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$(runId)/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
+      
+      $body =@"
+      {
+        "stream": "abc",
+        "fileName": "$(System.DefaultWorkingDirectory)/$Name.png",
+        "comment": "Test attachment upload",
+        "attachmentType": "GeneralAttachment"
+      }
+      "@
+      $TestResultAttachmentResult = Invoke-RestMethod -Uri $TestResultAttachmentURL -ContentType "application/json" -Body $body -Headers $AzureDevOpsAuthenicationHeader -Method POST
+      }
+      }
+  continueOnError: true
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $AzureDevOpsPAT = {PAT}
+      $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
+      $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs/$(runId)/results?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
+      foreach($Run in $result.value){
+      If($Run.outcome -eq "Failed"){
+      $TestResultID = $Run.id
+      $TestTitle=$Run.testCase.name
+      $CharArray =$TestTitle.Split(".")
+      $TestCase=$CharArray[6]
+      $CharArraytwo=$TestCase.Split("(")
+      $TestName =$CharArraytwo[0]
+      $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)\{Source alias}\tests\{testproject}\bin\Release\$TestName.png")
+      $Base64file= [Convert]::ToBase64String($file)
+      $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$(runId)/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
+      
+      $body =@"
+      {
+        "stream": "$Base64file",
+        "fileName": "$TestName.png",
+        "comment": "Test attachment upload",
+        "attachmentType": "GeneralAttachment"
+      }
+      "@
+      $TestResultAttachmentResult = Invoke-RestMethod -Uri $TestResultAttachmentURL -ContentType "application/json" -Body $body -Headers $AzureDevOpsAuthenicationHeader -Method POST
+      }
+      }
   continueOnError: true
 - task: PublishPipelineArtifact@1
   inputs:
