@@ -41,7 +41,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)/screenshots/$TESTFAIL.png")
+      $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)/pscreenshots/$TESTFAIL.png")
       $Base64file= [Convert]::ToBase64String($file)
       echo $Base64file
       
