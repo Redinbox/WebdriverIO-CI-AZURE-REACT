@@ -41,6 +41,23 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      $connectionToken="Personal Access Token"
+      
+      $base64AuthInfo= [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($connectionToken)"))
+      
+      $url = "https://dev.azure.com/{organization}/{project}/_apis/test/runs?api-version=6.0"
+      
+      $results= Invoke-RestMethod -Uri $trurl -Headers @{authorization = "Basic $base64AuthInfo"} -Method Get
+      echo 'results /n' $results
+      $run = $results.value | Where-Object{$_.name -match $buildId}
+      echo 'run /n' $run
+      $runId = $run.id
+      echo 'run id/n' $runId
+  continueOnError: true
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
       $AzureDevOpsPAT = {PAT}
       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
       $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs/72/results?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
