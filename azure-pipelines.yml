@@ -45,7 +45,7 @@ steps:
       
       $base64AuthInfo= [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($connectionToken)"))
       
-      $url = "https://dev.azure.com/{organization}/{project}/_apis/test/runs?api-version=6.0"
+      $url = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs?api-version=6.0"
       
       $results= Invoke-RestMethod -Uri $trurl -Headers @{authorization = "Basic $base64AuthInfo"} -Method Get
       echo 'results /n' $results
