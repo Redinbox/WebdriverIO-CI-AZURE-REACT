@@ -41,7 +41,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)/screenshots/$*.png")
+      $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)/screenshots/$TESTFAIL.png")
       $Base64file= [Convert]::ToBase64String($file)
       echo $Base64file
       
@@ -55,7 +55,7 @@ steps:
       $JSON = "
           {
              `"stream`": `"$Base64file`",
-             `"fileName`": `"$Name.png`",
+             `"fileName`": `"$TESTFAIL.png`",
              `"comment`": `"Test attachment upload`",
              `"attachmentType`": `"GeneralAttachment`"
           }"
@@ -64,6 +64,7 @@ steps:
       $response = Invoke-RestMethod -Uri $url -Headers @{Authorization = "Basic $token"} -Method Post -Body $JSON -ContentType application/json
       echo 'response/n' $response
   continueOnError: true
+  displayName: 'Get response'
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
