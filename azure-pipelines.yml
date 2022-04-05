@@ -44,6 +44,7 @@ steps:
     targetType: 'inline'
     script: |
       $AzureDevOpsPAT = {PAT}
+      echo 'PAT/n'+AzureDevOpsPAT
       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
       $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs/72/results?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
       echo $result
