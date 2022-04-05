@@ -208,7 +208,7 @@ exports.config = {
         var timestamp = new Date().toJSON().replace(/:/g, '-');
         var filename = 'TESTFAIL.png'
         //var filename = 'TESTFAIL_' + browserName + '_' + timestamp + '.png';
-        var filePath = path.join("/screenshots", filename);
+        var filePath = path.join("./pscreenshots", filename);
         // save screenshot
         await browser.saveScreenshot(filePath);
         //browser.saveDocumentScreenshot(`${filepath}.png`);
