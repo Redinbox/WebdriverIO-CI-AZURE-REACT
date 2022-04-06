@@ -52,10 +52,14 @@ steps:
       echo 'results value/n' $result.value
       #List all test result  get the test result ID via result
       foreach($Run in $result.value){
-      echo $Run.outcome
+      echo 'outcome/n' $Run.outcome
       #Get the test result ID via result
       If($Run.outcome -eq "Failed"){
+      echo 'Run id/n'$Run.id
+      $runId = $run.id
+      echo 'runId/n''$Run.id
       $TestResultID = $Run.id
+      echo 'Rutest case name/n'$Run.testCase.name
       $Name=$Run.testCase.name
       Write-Host $TestResultID $Name
       
