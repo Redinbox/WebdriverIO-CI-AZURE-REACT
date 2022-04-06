@@ -31,77 +31,41 @@ steps:
     testResultsFiles: 'wr-results.xml'
     searchFolder: '$(System.DefaultWorkingDirectory)/output'
   continueOnError: true
+  displayName: 'Copy junit file'
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(System.DefaultWorkingDirectory)/report'
     artifact: 'Allure Results'
     publishLocation: 'pipeline'
   continueOnError: true
+  displayName: 'Copy allure file'
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
     script: |
-      $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)/screenshots/$TESTFAIL.png")
-      $Base64file= [Convert]::ToBase64String($file)
-      echo $Base64file
-      
-      
-      $token = "PAT"
-      
-      $url="https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$(runId)/results/$($TestResultID)/attachments?api-version=6.0-preview.1"
-      
-      $token = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($token)"))
-      
-      $JSON = "
-          {
-             `"stream`": `"$Base64file`",
-             `"fileName`": `"$TESTFAIL.png`",
-             `"comment`": `"Test attachment upload`",
-             `"attachmentType`": `"GeneralAttachment`"
-          }"
-      
-      
-      $response = Invoke-RestMethod -Uri $url -Headers @{Authorization = "Basic $token"} -Method Post -Body $JSON -ContentType application/json
-      echo 'response/n' $response
-  continueOnError: true
-  displayName: 'Get response'
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      $connectionToken="Personal Access Token"
-      
-      $base64AuthInfo= [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($connectionToken)"))
-      
-      $url = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs?api-version=6.0"
-      
-      $results= Invoke-RestMethod -Uri $trurl -Headers @{authorization = "Basic $base64AuthInfo"} -Method Get
-      echo 'results /n' $results
-      $run = $results.value | Where-Object{$_.name -match $buildId}
-      echo 'run /n' $run
-      $runId = $run.id
-      echo 'run id/n' $runId
-  continueOnError: true
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      $AzureDevOpsPAT = {PAT}
-      $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
+      $AzureDevOpsPAT = "fqt5f2eftisi4jflx7uliarhpr3hrk2mzcdebnijtvmz6ptievlq"
+      echo 'PAT /n'+$AzureDevOpsPAT
+      $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
+      echo 'header /n ' $AzureDevOpsAuthenicationHeader
       $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs/72/results?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
-      echo $result
+      echo 'results/n' $result
+      echo 'results value/n' $result.value
       #List all test result  get the test result ID via result
       foreach($Run in $result.value){
-      echo $Run.outcome
+      echo 'outcome/n' $Run.outcome
       #Get the test result ID via result
       If($Run.outcome -eq "Failed"){
+      echo 'Run id/n' $Run.id
+      $runId = $run.id
+      echo 'runId/n' $Run.id
       $TestResultID = $Run.id
+      echo 'Rutest case name/n' $Run.testCase.name
       $Name=$Run.testCase.name
       Write-Host $TestResultID $Name
       
       
       #Add attachment via test run ID and test result ID
-      $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$(runId)/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
+      $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$runId/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
       
       $body =@"
       {
@@ -115,16 +79,18 @@ steps:
       }
       }
   continueOnError: true
+  displayName: 'get response'
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
     script: |
-      $AzureDevOpsPAT = {PAT}
+      $AzureDevOpsPAT = "fqt5f2eftisi4jflx7uliarhpr3hrk2mzcdebnijtvmz6ptievlq"
       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
       $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs/$(runId)/results?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
       foreach($Run in $result.value){
       If($Run.outcome -eq "Failed"){
       $TestResultID = $Run.id
+      $runId=$Run.id
       $TestTitle=$Run.testCase.name
       $CharArray =$TestTitle.Split(".")
       $TestCase=$CharArray[6]
@@ -132,7 +98,7 @@ steps:
       $TestName =$CharArraytwo[0]
       $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)\{Source alias}\tests\{testproject}\bin\Release\$TestName.png")
       $Base64file= [Convert]::ToBase64String($file)
-      $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$(runId)/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
+      $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$runId/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
       
       $body =@"
       {
@@ -146,6 +112,7 @@ steps:
       }
       }
   continueOnError: true
+  displayName: 'set response'
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(System.DefaultWorkingDirectory)/report/allure-report/index.html'
