@@ -70,7 +70,7 @@ steps:
       $body =@"
       {
         "stream": "abc",
-        "fileName": "$(System.DefaultWorkingDirectory)/pscreenshots/TESTFAIL.png",
+        "fileName": "TESTFAIL.png",
         "comment": "Test attachment upload",
         "attachmentType": "GeneralAttachment"
       }
