@@ -55,11 +55,11 @@ steps:
       echo 'outcome/n' $Run.outcome
       #Get the test result ID via result
       If($Run.outcome -eq "Failed"){
-      echo 'Run id/n'$Run.id
+      echo 'Run id/n' $Run.id
       $runId = $run.id
-      echo 'runId/n''$Run.id
+      echo 'runId/n' $Run.id
       $TestResultID = $Run.id
-      echo 'Rutest case name/n'$Run.testCase.name
+      echo 'Rutest case name/n' $Run.testCase.name
       $Name=$Run.testCase.name
       Write-Host $TestResultID $Name
       
@@ -90,6 +90,7 @@ steps:
       foreach($Run in $result.value){
       If($Run.outcome -eq "Failed"){
       $TestResultID = $Run.id
+      $runId=$Run.id
       $TestTitle=$Run.testCase.name
       $CharArray =$TestTitle.Split(".")
       $TestCase=$CharArray[6]
@@ -97,7 +98,7 @@ steps:
       $TestName =$CharArraytwo[0]
       $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)\{Source alias}\tests\{testproject}\bin\Release\$TestName.png")
       $Base64file= [Convert]::ToBase64String($file)
-      $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$(runId)/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
+      $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$runId/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
       
       $body =@"
       {
