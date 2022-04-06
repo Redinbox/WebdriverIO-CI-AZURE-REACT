@@ -79,7 +79,7 @@ steps:
 
       #Add attachment via test run ID and test result ID
       $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$runId/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
-
+      echo 'test result attachment/n'+ $TestResultAttachmentURL
       $body =@"
       {
         "stream": "$Base64file",
