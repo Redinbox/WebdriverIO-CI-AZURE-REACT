@@ -70,7 +70,7 @@ steps:
       $body =@"
       {
         "stream": "abc",
-        "fileName": "$(System.DefaultWorkingDirectory)/pscreenshots/$TESTFAIL.png",
+        "fileName": "$(System.DefaultWorkingDirectory)/pscreenshots/TESTFAIL.png",
         "comment": "Test attachment upload",
         "attachmentType": "GeneralAttachment"
       }
@@ -121,7 +121,7 @@ steps:
   continueOnError: true
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/report'
-    ArtifactName: 'drop'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/pscreenshots'
+    ArtifactName: 'screenshots'
     publishLocation: 'Container'
   continueOnError: true
