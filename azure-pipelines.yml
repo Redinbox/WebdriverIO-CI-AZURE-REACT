@@ -108,6 +108,7 @@ steps:
       $TestCase=$CharArray[6]
       $CharArraytwo=$TestCase.Split("(")
       $TestName =$CharArraytwo[0]
+      echo 'test name/n'+ $TestName
       $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)\{Source alias}\tests\{testproject}\bin\Release\$TestName.png")
       $Base64file= [Convert]::ToBase64String($file)
       $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$runId/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
