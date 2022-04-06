@@ -66,9 +66,14 @@ steps:
       $TestResultID = $Run.id
       $runId=$Run.id
       echo 'run id/n'+$Run.id
-      $Name=$Run.testCase.name
-      echo 'test case name/n'+$Name
-      Write-Host $TestResultID $Name
+      $TestTitle=$Run.testCase.name
+      $CharArray =$TestTitle.Split(".")
+      $TestCase=$CharArray[6]
+
+      $CharArraytwo=$TestCase.Split("(")
+      $TestName =$CharArraytwo[0]
+      echo 'test case name/n'+$TestName
+      Write-Host $TestResultID $TestName
 
 
       #Add attachment via test run ID and test result ID
