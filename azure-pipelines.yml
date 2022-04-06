@@ -43,7 +43,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      $AzureDevOpsPAT = {PAT}
+      $AzureDevOpsPAT = "fqt5f2eftisi4jflx7uliarhpr3hrk2mzcdebnijtvmz6ptievlq"
       echo 'PAT /n'+$AzureDevOpsPAT
       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
       echo 'header /n ' $AzureDevOpsAuthenicationHeader
@@ -80,7 +80,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      $AzureDevOpsPAT = {PAT}
+      $AzureDevOpsPAT = fqt5f2eftisi4jflx7uliarhpr3hrk2mzcdebnijtvmz6ptievlq
       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
       $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs/$(runId)/results?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
       foreach($Run in $result.value){
