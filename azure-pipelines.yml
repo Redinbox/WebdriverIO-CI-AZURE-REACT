@@ -57,10 +57,9 @@ steps:
       $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs/$($testRunsIdSorted[0].id)?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
       Write-Host "results = $($result | ConvertTo-Json -Depth 100)"
       Write-Host "##vso[task.setvariable variable=runId]$($result.id | ConvertTo-Json -Depth 100)"
-     
+      echo 'results value/n'+$result.value
       #List all test result  get the test result ID via result
       foreach($Run in $result.value){
-
       #Get the test result ID via result
       If($Run.outcome -eq "Failed"){
       $TestResultID = $Run.id
