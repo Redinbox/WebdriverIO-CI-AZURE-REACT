@@ -77,7 +77,7 @@ steps:
       $body =@"
       {
         "stream": "$Base64file",
-        "fileName": "$(System.DefaultWorkingDirectory)/$Name.png",
+        "fileName": "$(System.DefaultWorkingDirectory)/pscreenshots/TESTFAIL.png",
         "comment": "Test attachment upload",
         "attachmentType": "GeneralAttachment"
       }
