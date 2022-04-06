@@ -47,30 +47,34 @@ steps:
       echo 'PAT /n'+$AzureDevOpsPAT
       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
       echo 'header /n ' $AzureDevOpsAuthenicationHeader
-      $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs/$runId/results?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
-      echo 'results/n' $result
-      echo 'results value/n' $result.value
+      $UriOrga = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/" 
+      $uriAccount = $UriOrga + "_apis/test/runs?api-version=6.0"
+      $response = Invoke-RestMethod -Uri $uriAccount -Headers $AzureDevOpsAuthenicationHeader -Method Get
+      $testRunsIdSorted = $response.value | sort-object id -Descending
+      $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs/$($testRunsIdSorted[0].id)?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
+      Write-Host "results = $($result | ConvertTo-Json -Depth 100)"
+      Write-Host "##vso[task.setvariable variable=runId]$($result.id | ConvertTo-Json -Depth 100)"
+     
       #List all test result  get the test result ID via result
       foreach($Run in $result.value){
-      echo 'outcome/n' $Run.outcome
+
       #Get the test result ID via result
       If($Run.outcome -eq "Failed"){
-      echo 'Run id/n' $Run.id
-      $runId = $run.id
-      echo 'runId/n' $Run.id
       $TestResultID = $Run.id
-      echo 'Rutest case name/n' $Run.testCase.name
+      $runId=$Run.id
+      echo 'run id/n'+$Run.id
       $Name=$Run.testCase.name
+      echo 'test case name/n'+$Name
       Write-Host $TestResultID $Name
-      
-      
+
+
       #Add attachment via test run ID and test result ID
-      $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$runId/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
-      
+      $TestResultAttachmentURL = "https://dev.azure.com/{org}/{proj}/_apis/test/Runs/$runId/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
+
       $body =@"
       {
-        "stream": "abc",
-        "fileName": "TESTFAIL.png",
+        "stream": "$Base64file",
+        "fileName": "$(System.DefaultWorkingDirectory)/$Name.png",
         "comment": "Test attachment upload",
         "attachmentType": "GeneralAttachment"
       }
@@ -78,8 +82,7 @@ steps:
       $TestResultAttachmentResult = Invoke-RestMethod -Uri $TestResultAttachmentURL -ContentType "application/json" -Body $body -Headers $AzureDevOpsAuthenicationHeader -Method POST
       }
       }
-  continueOnError: true
-  displayName: 'get response'
+  displayName: Update sreenshot attachments
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
