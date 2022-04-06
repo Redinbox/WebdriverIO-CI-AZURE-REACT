@@ -59,7 +59,7 @@ steps:
       Write-Host "##vso[task.setvariable variable=runId]$($result.id | ConvertTo-Json -Depth 100)"
       echo 'results value/n'+$result.value
       foreach($Run in $result.value){
-      
+      echo 'run outcome/n'+$Run.outcome
       If($Run.outcome -eq "Failed"){
       $TestResultID = $Run.id
       $runId=$Run.id
