@@ -75,11 +75,8 @@ steps:
       If($Run.outcome -eq "Failed"){
       $TestResultID = $Run.id
       $TestTitle=$Run.testCase.name
-      $CharArray =$TestTitle.Split(".")
-      $TestCase=$CharArray[6]
-
-      $CharArraytwo=$TestCase.Split("(")
-      $TestName =$CharArraytwo[0]
+      $TestName =$TestTitle
+      echo 'testname/n'+$TestName
 
       $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)\pscreenshots\TESTFAIL.png")
       $Base64file= [Convert]::ToBase64String($file)
