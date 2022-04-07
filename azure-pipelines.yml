@@ -93,6 +93,7 @@ steps:
       }
       "@
       $TestResultAttachmentResult = Invoke-RestMethod -Uri $TestResultAttachmentURL -ContentType "application/json" -Body $body -Headers $AzureDevOpsAuthenicationHeader -Method POST
+      echo 'final out/n' + $TestResultAttachmentResult
       }
       }
   displayName: Update sreenshot attachments2
