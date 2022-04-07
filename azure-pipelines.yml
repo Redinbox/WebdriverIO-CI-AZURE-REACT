@@ -91,7 +91,6 @@ steps:
         "comment": "Test attachment upload",
         "attachmentType": "GeneralAttachment"
       }
-      echo 'body/n'+$body
       "@
       $TestResultAttachmentResult = Invoke-RestMethod -Uri $TestResultAttachmentURL -ContentType "application/json" -Body $body -Headers $AzureDevOpsAuthenicationHeader -Method POST
       echo 'final out/n' + $TestResultAttachmentResult
