@@ -58,36 +58,7 @@ steps:
       Write-Host "results = $($result | ConvertTo-Json -Depth 100)"
       Write-Host "##vso[task.setvariable variable=runId]$($result.id | ConvertTo-Json -Depth 100)"
       echo 'results value/n'+$result.value
-      foreach($Run in $result.value){
-      echo 'run outcome/n'+$Run.outcome
-      If($Run.outcome -eq "Failed"){
-      $TestResultID = $Run.id
-      $runId=$Run.id
-      echo 'run id/n'+$Run.id
-      $TestTitle=$Run.testCase.name
-      $CharArray =$TestTitle.Split(".")
-      $TestCase=$CharArray[6]
-      $CharArraytwo=$TestCase.Split("(")
-      $TestName =$CharArraytwo[0]
-      echo 'test case name/n'+$TestName
-      Write-Host $TestResultID $TestName
-      $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)\pscreenshots\TESTFAIL.png")
-      $Base64file= [Convert]::ToBase64String($file)
-
-      #Add attachment via test run ID and test result ID
-      $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$runId/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
-      echo 'test result attachment/n'+ $TestResultAttachmentURL
-      $body =@"
-      {
-        "stream": "$Base64file",
-        "fileName": "$(System.DefaultWorkingDirectory)/pscreenshots/TESTFAIL.png",
-        "comment": "Test attachment upload",
-        "attachmentType": "GeneralAttachment"
-      }
-      "@
-      $TestResultAttachmentResult = Invoke-RestMethod -Uri $TestResultAttachmentURL -ContentType "application/json" -Body $body -Headers $AzureDevOpsAuthenicationHeader -Method POST
-      }
-      }
+      
   displayName: Update sreenshot attachments
 - task: PowerShell@2
   inputs:
@@ -96,36 +67,35 @@ steps:
       $AzureDevOpsPAT = "fqt5f2eftisi4jflx7uliarhpr3hrk2mzcdebnijtvmz6ptievlq"
       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
       $result = Invoke-RestMethod -Uri https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/runs/$(runId)/results?api-version=6.0 -Headers $AzureDevOpsAuthenicationHeader -Method Get
-      
+
       #List all test result  get the test result ID via result
       foreach($Run in $result.value){
-      
+
       #Get the test result ID via result
       If($Run.outcome -eq "Failed"){
       $TestResultID = $Run.id
       $TestTitle=$Run.testCase.name
       $CharArray =$TestTitle.Split(".")
       $TestCase=$CharArray[6]
-      
+
       $CharArraytwo=$TestCase.Split("(")
       $TestName =$CharArraytwo[0]
-      
+
       $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)\pscreenshots\TESTFAIL.png")
       $Base64file= [Convert]::ToBase64String($file)
-      
+
       #Add attachment via test run ID and test result ID
-      $TestResultAttachmentURL = "https://dev.azure.com/{org}/{proj}/_apis/test/Runs/$(runId)/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
-      
+      $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$(runId)/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
+
       $body =@"
       {
         "stream": "$Base64file",
-        "fileName": "$(System.DefaultWorkingDirectory)/pscreenshots/TESTFAIL.png",
+        "fileName": "TESTFAIL.png",
         "comment": "Test attachment upload",
         "attachmentType": "GeneralAttachment"
       }
       "@
       $TestResultAttachmentResult = Invoke-RestMethod -Uri $TestResultAttachmentURL -ContentType "application/json" -Body $body -Headers $AzureDevOpsAuthenicationHeader -Method POST
-      }
       }
   displayName: Update sreenshot attachments2
 - task: PowerShell@2
