@@ -97,6 +97,7 @@ steps:
       "@
       $TestResultAttachmentResult = Invoke-RestMethod -Uri $TestResultAttachmentURL -ContentType "application/json" -Body $body -Headers $AzureDevOpsAuthenicationHeader -Method POST
       }
+      }
   displayName: Update sreenshot attachments2
 - task: PowerShell@2
   inputs:
