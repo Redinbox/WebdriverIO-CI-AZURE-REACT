@@ -83,7 +83,7 @@ steps:
 
       #Add attachment via test run ID and test result ID
       $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$(runId)/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
-
+      echo '$TestResultAttachmentURL/n'+$TestResultAttachmentURL 
       $body =@"
       {
         "stream": "$Base64file",
@@ -91,6 +91,7 @@ steps:
         "comment": "Test attachment upload",
         "attachmentType": "GeneralAttachment"
       }
+      echo 'body/n'+$body
       "@
       $TestResultAttachmentResult = Invoke-RestMethod -Uri $TestResultAttachmentURL -ContentType "application/json" -Body $body -Headers $AzureDevOpsAuthenicationHeader -Method POST
       echo 'final out/n' + $TestResultAttachmentResult
