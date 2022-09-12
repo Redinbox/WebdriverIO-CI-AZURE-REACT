@@ -206,7 +206,7 @@ exports.config = {
         var browserName = browser.capabilities.browserName;
         var timestamp = new Date().toJSON().replace(/:/g, '-');
         var filename = test.title.substring(0,6)+'-'+timestamp+'.png';
-        log.debug(filename);
+        log.debug("filename: "+filename);
         //var filename = 'TESTFAIL_' + browserName + '_' + timestamp + '.png';
         var filePath = path.join("./pscreenshots", filename);
 

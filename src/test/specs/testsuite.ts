@@ -58,7 +58,7 @@ describe('webdriver.io page', async()=> {
         throw e;
     }
     })
-    it('WRTNC2 should not have same number count', async() => {
+    it('WRTNC2 should not have same number count false', async() => {
         try {
             allureReporter.addDescription("Should not have same number count", "Test Description")
             console.log("Test started")
@@ -109,7 +109,7 @@ describe('webdriver.io page', async()=> {
             throw e;
         }
     })
-    it('WRTNC3 should not have same number count', async() => {
+    it('WRTNC3 should not have same number count1', async() => {
         try {
             allureReporter.addDescription("Should not have same number count", "Test Description")
             console.log("Test started")
@@ -160,7 +160,7 @@ describe('webdriver.io page', async()=> {
             throw e;
         }
     })
-    it('WRTNC4 should not have same number count', async() => {
+    it('WRTNC4 should not have same number count2', async() => {
         try {
             allureReporter.addDescription("Should not have same number count", "Test Description")
             console.log("Test started")
