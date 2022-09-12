@@ -9,7 +9,7 @@ describe('webdriver.io page', async()=> {
         await browser.pause(5000);
     });
 
-    it("Should have same number count", async () => {
+    it("WRTNC1 Should have same number count", async () => {
         try{
         allureReporter.addDescription("Should have same number count", "Test Description")
         console.log("Test started")
@@ -58,7 +58,7 @@ describe('webdriver.io page', async()=> {
         throw e;
     }
     })
-    it('should not have same number count', async() => {
+    it('WRTNC2 should not have same number count', async() => {
         try {
             allureReporter.addDescription("Should not have same number count", "Test Description")
             console.log("Test started")
@@ -106,6 +106,108 @@ describe('webdriver.io page', async()=> {
                 "failed"
             );
              allureReporter.endStep("failed");
+            throw e;
+        }
+    })
+    it('WRTNC3 should not have same number count', async() => {
+        try {
+            allureReporter.addDescription("Should not have same number count", "Test Description")
+            console.log("Test started")
+            const title = await browser.getTitle()
+            console.log("Title: " + title)
+            allureReporter.addStep("Title of the page: " + title)
+            const BUTTON_ADD = "//button[contains(text(),'Add')]"
+            const COUNTER = '.counter'
+            const add = await $('[role=button]')
+            const counter = $('.counter')
+            const isdisplayed = await add.isDisplayed()
+            const expNumber: number = 3
+            let actualCounter: number
+            if (isdisplayed) {
+                await add.click()
+                await browser.pause(2000)
+                const counterText = await counter.getText()
+                actualCounter = parseInt(counterText);
+                console.log("counter text: " + actualCounter)
+                /**allureReporter.addStep(
+                 "Counter number , Before click on Add :" +
+                 expNumber +
+                 " , and After click on Add:" +
+                 actualCounter
+                 );*/
+                assert.equal(
+                    expNumber,
+                    counterText,
+                    `${expNumber} and ${counterText} are not equal`
+                );
+            }
+        }catch (e) {
+            console.log(`Error while comparing add counter. ERR: ${e}`)
+            allureReporter.addStep(
+                `Error while comparing add counter. ERR: ${e}`,
+                "failed"
+            );
+            allureReporter.addStep(
+                "FaledStep",
+                {
+                    name: "fail",
+                    type: "image/png",
+                    content: Buffer.from(await browser.takeScreenshot(), "base64"),
+                },
+                "failed"
+            );
+            allureReporter.endStep("failed");
+            throw e;
+        }
+    })
+    it('WRTNC4 should not have same number count', async() => {
+        try {
+            allureReporter.addDescription("Should not have same number count", "Test Description")
+            console.log("Test started")
+            const title = await browser.getTitle()
+            console.log("Title: " + title)
+            allureReporter.addStep("Title of the page: " + title)
+            const BUTTON_ADD = "//button[contains(text(),'Add')]"
+            const COUNTER = '.counter'
+            const add = await $('[role=button]')
+            const counter = $('.counter')
+            const isdisplayed = await add.isDisplayed()
+            const expNumber: number = 3
+            let actualCounter: number
+            if (isdisplayed) {
+                await add.click()
+                await browser.pause(2000)
+                const counterText = await counter.getText()
+                actualCounter = parseInt(counterText);
+                console.log("counter text: " + actualCounter)
+                /**allureReporter.addStep(
+                 "Counter number , Before click on Add :" +
+                 expNumber +
+                 " , and After click on Add:" +
+                 actualCounter
+                 );*/
+                assert.equal(
+                    expNumber,
+                    counterText,
+                    `${expNumber} and ${counterText} are not equal`
+                );
+            }
+        }catch (e) {
+            console.log(`Error while comparing add counter. ERR: ${e}`)
+            allureReporter.addStep(
+                `Error while comparing add counter. ERR: ${e}`,
+                "failed"
+            );
+            allureReporter.addStep(
+                "FaledStep",
+                {
+                    name: "fail",
+                    type: "image/png",
+                    content: Buffer.from(await browser.takeScreenshot(), "base64"),
+                },
+                "failed"
+            );
+            allureReporter.endStep("failed");
             throw e;
         }
     })

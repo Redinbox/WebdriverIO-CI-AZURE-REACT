@@ -47,7 +47,7 @@ steps:
       echo 'PAT /n'+$AzureDevOpsPAT
       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
       echo 'header /n ' $AzureDevOpsAuthenicationHeader
-      $UriOrga = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/" 
+      $UriOrga = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/"
       $uriAccount = $UriOrga + "_apis/test/runs?api-version=6.0"
       $response = Invoke-RestMethod -Uri $uriAccount -Headers $AzureDevOpsAuthenicationHeader -Method Get
       echo 'resonse value/n'+ $response.value
@@ -58,7 +58,7 @@ steps:
       Write-Host "results = $($result | ConvertTo-Json -Depth 100)"
       Write-Host "##vso[task.setvariable variable=runId]$($result.id | ConvertTo-Json -Depth 100)"
       echo 'results value/n'+$result.value
-      
+
   displayName: Update sreenshot attachments
 - task: PowerShell@2
   inputs:
@@ -78,12 +78,12 @@ steps:
       $TestName =$TestTitle
       echo 'testname/n'+$TestName
 
-      $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)/pscreenshots/TESTFAIL.png")
+      $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)/pscreenshots/$TestName.png")
       $Base64file= [Convert]::ToBase64String($file)
 
       #Add attachment via test run ID and test result ID
-      $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$(runId)/results/$($TestResultID)/attachments?api-version=6.0-preview.1" 
-      echo '$TestResultAttachmentURL/n'+$TestResultAttachmentURL 
+      $TestResultAttachmentURL = "https://dev.azure.com/ravieinbox/WDIO-CI-AZURE/_apis/test/Runs/$(runId)/results/$($TestResultID)/attachments?api-version=6.0-preview.1"
+      echo '$TestResultAttachmentURL/n'+$TestResultAttachmentURL
       $body =@"
       {
         "stream": "$Base64file",
