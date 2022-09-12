@@ -205,7 +205,7 @@ exports.config = {
         //driver.logScreenshot(String.Format("Test Ended in {0}", result.error.stack));
         var browserName = browser.capabilities.browserName;
         var timestamp = new Date().toJSON().replace(/:/g, '-');
-        var filename = test.title.substring(0,6)+'-'+timestamp+'.png';
+        var filename = test.title.substring(0,6)+'.png'; //+'-'+timestamp+'.png';
         log.debug("filename: "+filename);
         //var filename = 'TESTFAIL_' + browserName + '_' + timestamp + '.png';
         var filePath = path.join("./pscreenshots", filename);
