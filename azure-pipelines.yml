@@ -75,10 +75,10 @@ steps:
       If($Run.outcome -eq "Failed"){
       $TestResultID = $Run.id
       $TestTitle=$Run.testCase.name
-      $TestName =$TestTitle
-      echo 'testname/n'+$TestTitle
+      $TestName =${TestTitle:0:6}
+      echo 'testname/n'+$TestName
 
-      $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)/pscreenshots/$TestTitle.png")
+      $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)/pscreenshots/$TestName.png")
       $Base64file= [Convert]::ToBase64String($file)
 
       #Add attachment via test run ID and test result ID
