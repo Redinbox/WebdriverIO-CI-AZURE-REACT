@@ -75,7 +75,7 @@ steps:
       If($Run.outcome -eq "Failed"){
       $TestResultID = $Run.id
       $TestTitle=$Run.testCase.name
-      $TestName =${TestTitle:0:6}
+      $TestName ='${TestTitle:0:6}'
       echo 'testname/n'+$TestName
 
       $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)/pscreenshots/$TestName.png")
@@ -87,7 +87,7 @@ steps:
       $body =@"
       {
         "stream": "$Base64file",
-        "fileName": "TESTFAIL.png",
+        "fileName": "$TestName.png",
         "comment": "Test attachment upload",
         "attachmentType": "GeneralAttachment"
       }
