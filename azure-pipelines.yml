@@ -76,9 +76,9 @@ steps:
       $TestResultID = $Run.id
       $TestTitle=$Run.testCase.name
       $TestName =$TestTitle
-      echo 'testname/n'+$TestName
+      echo 'testname/n'+$TestTitle
 
-      $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)/pscreenshots/$TestName.png")
+      $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)/pscreenshots/$TestTitle.png")
       $Base64file= [Convert]::ToBase64String($file)
 
       #Add attachment via test run ID and test result ID
