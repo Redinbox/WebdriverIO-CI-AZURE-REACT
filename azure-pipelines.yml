@@ -75,7 +75,7 @@ steps:
       If($Run.outcome -eq "Failed"){
       $TestResultID = $Run.id
       $TestTitle=$Run.testCase.name
-      $TestName =${TestTitle:6}
+      $TestName =$TestTitle.Split(" ")[0]
       echo 'testname/n'+$TestName
 
       $file= [IO.File]::ReadAllBytes("$(System.DefaultWorkingDirectory)/pscreenshots/$TestName.png")
